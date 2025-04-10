@@ -5,38 +5,55 @@
     <title>Mój Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/public/styles.css">
 </head>
 <body class="bg-light p-4">
+
 <div class="container">
     <h1 class="mb-4 text-center">Mój Blog</h1>
 
-    <form method="POST" action="/posts" class="mb-5">
+    <!-- Formularz dodawania posta -->
+    <form method="POST" action="/posts" class="mb-4">
         <input type="text" name="title" class="form-control mb-2" placeholder="Tytuł posta" required>
         <textarea name="content" class="form-control mb-2" placeholder="Treść posta" rows="4" required></textarea>
         <button type="submit" class="btn btn-primary">Dodaj post</button>
     </form>
 
-    <% posts.slice().reverse().forEach(post => { %>
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title"><%= post.title %></h5>
-                <p class="card-text"><%= post.content %></p>
-            </div>
-        </div>
-    <% }) %>
-
-    <div class="container mt-4 d-flex justify-content-between align-items-center">
+    <!-- Przyciski nawigacyjne -->
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
         <div class="d-flex gap-2">
             <a href="/all_posts" class="btn btn-secondary">Zobacz wszystkie posty</a>
             <a href="/about" class="btn btn-secondary">O mnie</a>
             <a href="/contact" class="btn btn-secondary">Kontakt</a>
         </div>
 
-        <form action="/delete_all" method="POST">
-            <button type="submit" class="btn btn-danger">Usuń wszystkie posty</button>
-        </form>
+        <% if (posts.length > 0) { %>
+            <form action="/delete_all" method="POST" class="ms-auto">
+                <button type="submit" class="btn btn-secondary">Usuń wszystkie posty</button>
+            </form>
+        <% } %>
     </div>
+
+    <!-- Lista postów -->
+    <% if (posts.length > 0) { %>
+        <% posts.slice().reverse().forEach(post => { %>
+            <div class="card mb-3 position-relative">
+                <form action="/delete/<%= post.id %>" method="POST" class="position-absolute top-0 end-0 m-2">
+                    <button type="submit" class="btn-close" aria-label="Usuń"></button>
+                </form>
+                <div class="card-body">
+                    <h5 class="card-title"><%= post.title %></h5>
+                    <p class="card-text"><%= post.content %></p>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <div class="d-flex justify-content-center align-items-center" style="height: 40vh;">
+            <div class="alert alert-info text-center fs-5 px-5 py-4 shadow-sm" role="alert">
+                Brak postów do wyświetlenia 😕
+            </div>
+        </div>
+    <% } %>
 </div>
+
 </body>
 </html>

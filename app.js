@@ -52,3 +52,13 @@ app.post('/delete_all', (req, res) => {
     fs.writeFileSync(postsPath, JSON.stringify([], null, 2));
     res.redirect('/');
 })
+
+app.post('/delete/:id', (req, res) => {
+    const postId = Number(req.params.id);
+    let posts = JSON.parse(fs.readFileSync(postsPath));
+
+    posts = posts.filter(post => post.id !== postId);
+
+    fs.writeFileSync(postsPath, JSON.stringify(posts, null, 2));
+    res.redirect('/');
+});
