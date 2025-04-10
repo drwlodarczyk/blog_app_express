@@ -28,6 +28,11 @@ app.get('/', (req, res) => {
     res.render('index', { posts });
 });
 
+app.get('/all_posts', (req, res) => {
+    const posts = JSON.parse(fs.readFileSync(postsPath));
+    res.render('all_posts', { posts });
+});
+
 app.post('/posts', (req, res) => {
     const { title, content } = req.body;
     const posts = JSON.parse(fs.readFileSync(postsPath));
