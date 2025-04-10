@@ -28,8 +28,17 @@ app.get('/', (req, res) => {
     res.render('index', { posts });
 });
 
-app.post('/post', (req, res) => {
-    const posts = req.body;
-    const postTitle = posts.title;
-    const postContent = posts.content;
-})
+app.post('/posts', (req, res) => {
+    const { title, content } = req.body;
+    const posts = JSON.parse(fs.readFileSync(postsPath));
+
+    const newPost = {
+        id: Date.now(),
+        title,
+        content
+    };
+
+    posts.push(newPost);
+    fs.writeFileSync(postsPath, JSON.stringify(posts, null, 2));
+    res.redirect('/');
+});
