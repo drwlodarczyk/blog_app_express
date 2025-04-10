@@ -26,10 +26,16 @@
         </div>
     <% }) %>
 
-    <div class="btn-group">
-        <a href="/all_posts" class="btn btn-secondary">Zobacz wszystkie posty</a>
-        <a href="/about" class="btn btn-secondary">O mnie</a>
-        <a href="/contact" class="btn btn-secondary">Kontakt</a>
+    <div class="container mt-4 d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-2">
+            <a href="/all_posts" class="btn btn-secondary">Zobacz wszystkie posty</a>
+            <a href="/about" class="btn btn-secondary">O mnie</a>
+            <a href="/contact" class="btn btn-secondary">Kontakt</a>
+        </div>
+
+        <form action="/delete_all" method="POST">
+            <button type="submit" class="btn btn-danger">Usuń wszystkie posty</button>
+        </form>
     </div>
 </div>
 </body>

@@ -47,3 +47,8 @@ app.post('/posts', (req, res) => {
     fs.writeFileSync(postsPath, JSON.stringify(posts, null, 2));
     res.redirect('/');
 });
+
+app.post('/delete_all', (req, res) => {
+    fs.writeFileSync(postsPath, JSON.stringify([], null, 2));
+    res.redirect('/');
+})

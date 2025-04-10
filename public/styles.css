@@ -1,0 +1,7 @@
+.separated-buttons .btn {
+    border: 1px solid #6c757d; /* klasyczny Bootstrapowy secondary */
+}
+
+.separated-buttons .btn + .btn {
+    border-left: 2px solid white; /* widoczna linia między przyciskami */
+}
